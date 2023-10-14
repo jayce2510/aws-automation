@@ -29,15 +29,16 @@ export const handler = async (event) => {
   //api ref: https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ec2/classes/describeinstancescommand.html
   const ec2InstancesList = await client.send(ec2InstancesCmd);
 
-  //   const ec2InstanceIds = []
-  //   ec2InstancesList.Reservations.forEach(id => {
-  //     ec2InstanceIds.push(id.Instances[0].InstanceId)
-  //   })
+    const ec2InstanceIds = []
+    ec2InstancesList.Reservations.forEach(id => {
+      ec2InstanceIds.push(id.Instances[0].InstanceId)
+      ec2InstanceIds.push(id.Instances[1].InstanceId)
+    })
 
   const result = {
     statusCode: 200,
-    // num: ec2InstancesList.Reservations.length,
-    // ids: ec2InstanceIds,
+    num: ec2InstanceIds.length,
+    ids: ec2InstanceIds,
     body: ec2InstancesList,
   };
   return result;
